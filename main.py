@@ -1,10 +1,10 @@
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-from flask import Flask"
-app = Flask(__name__)"
-@app.route("/")"
-def main():"
+from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def main():
 
     #Aqui va su código
 
