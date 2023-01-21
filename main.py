@@ -1,10 +1,11 @@
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-from flask import Flask
-app = Flask(__name__)
-@app.route("/")
-def main():
+from flask import Flask"
+app = Flask(__name__)"
+@app.route("/")"
+def main():"
+
     #Aqui va su código
 
     img = cv.imread('RX.jpg',0)
@@ -20,14 +21,22 @@ def main():
     plt.subplot(2,2,4),plt.imshow(sobely,cmap = 'gray')
     plt.title('Sobel Y'), plt.xticks([]), plt.yticks([])
 
+    img = cv.imread('Figure_1.jpg', 0)
+    img = cv.medianBlur(img, 5)
+    ret, th1 = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
+    th2 = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_MEAN_C, \
+                               cv.THRESH_BINARY, 11, 2)
+    th3 = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, \
+                               cv.THRESH_BINARY, 11, 2)
+    titles = ['Original Image', 'Global Thresholding (v = 127)',
+              'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
+    images = [img, th1, th2, th3]
+    for i in range(4):
+        plt.subplot(2, 2, i + 1), plt.imshow(images[i], 'gray')
+        plt.title(titles[i])
+        plt.xticks([]), plt.yticks([])
+    plt.show()
 
-
-    Fi3 = cv.imread ( 'Figure_1.jpg' , 0)
-    imageOut = Fi3[60:220,280:480]
-    cv2.imshow('Imagen de entrada',image)
-    cv2.imshow('Imagen de salida',imageOut)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
     plt.show()
-    return  Fi3
+    return images
